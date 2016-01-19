@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TinyLog</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="log_level">
+        <item>Verbose</item>
+        <item>Debug</item>
+        <item>Info</item>
+        <item>Warning</item>
+        <item>Error</item>
+    </string-array>
+</resources>

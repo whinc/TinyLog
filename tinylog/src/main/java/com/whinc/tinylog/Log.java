@@ -1,5 +1,7 @@
 package com.whinc.tinylog;
 
+import android.text.TextUtils;
+
 /**
  * Enhanced version of {@link Log}
  */
@@ -103,18 +105,18 @@ public class Log {
      * @param tag tag
      * @param msg log message
      * @param extra extra message
-     * @param start start of stack trace info
+     * @param depth depth of stack trace info
      */
-    private static void print(int level, String tag, String msg, String extra, int start) {
+    private static void print(int level, String tag, String msg, String extra, int depth) {
         if (sEnable && sLowestLevel <= level) {
             if (!intercept(tag, msg)) {
                 if (sPrintLineInfo) {
-                    printImpl(level, tag, sFormatter.format(msg, getStackTraceElement(start)));
+                    printImpl(level, tag, sFormatter.format(msg, getStackTraceElement(depth)));
                 } else {
                     printImpl(level, tag, msg);
                 }
             }
-            if (extra != null && !extra.isEmpty()) {
+            if (!TextUtils.isEmpty(extra)) {
                 printImpl(level, tag, extra);
             }
         }
@@ -123,19 +125,19 @@ public class Log {
     private static void printImpl(int level, String tag, String msg) {
         switch (level) {
             case LEVEL_VERBOSE:
-                Log.v(tag, msg);
+                android.util.Log.v(tag, msg);
                 break;
             case LEVEL_DEBUG:
-                Log.d(tag, msg);
+                android.util.Log.d(tag, msg);
                 break;
             case LEVEL_INFO:
-                Log.i(tag, msg);
+                android.util.Log.i(tag, msg);
                 break;
             case LEVEL_WARN:
-                Log.w(tag, msg);
+                android.util.Log.w(tag, msg);
                 break;
             case LEVEL_ERROR:
-                Log.e(tag, msg);
+                android.util.Log.e(tag, msg);
                 break;
         }
     }

@@ -116,7 +116,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//        Log.d(TAG, "position:" + position);
         switch (position) {
             case 0 :
                 Log.setLevel(Log.LEVEL_VERBOSE);

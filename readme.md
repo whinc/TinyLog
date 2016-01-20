@@ -3,8 +3,6 @@
 
 A tiny, power and easy to use android log. 短小精悍的Android日志类。
 
-![](./screenshot.png)
-
 ### Integration
 
 Step 1. Add the JitPack repository at the end of repositories in your root `build.gradle` file.

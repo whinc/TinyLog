@@ -1,7 +1,7 @@
 
 ### Tiny Log 
 
-A tiny, power and easy to use android log. 短小精悍的Android日志类。
+A tiny, powerful and easy to use android log. 短小精悍的Android日志类。
 
 ### Integration
 

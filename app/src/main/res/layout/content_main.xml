@@ -28,6 +28,13 @@
             />
     </TableRow>
     <TableRow>
+        <CheckBox
+            android:id="@+id/intercept_log_ckb"
+            android:text="Intercept Log output"
+            android:checked="false"
+            />
+    </TableRow>
+    <TableRow>
         <TextView
             android:text="Log Level"
             android:gravity="center"

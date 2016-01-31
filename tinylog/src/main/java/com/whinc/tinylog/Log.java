@@ -83,7 +83,7 @@ public class Log {
      * @param msg
      * @return return true if log output is intercepted, otherwise return false.
      */
-    private static boolean intercept(String tag, String msg) {
+    private static boolean intercept(int level, String tag, String msg) {
         if (sInterceptor == null) {
             return false;
         }
@@ -93,7 +93,7 @@ public class Log {
         /* set interceptor to null, this can prevent from recursion call if user call
         Log.v (Log.d, Log.i, etc...) in onIntercept() which will lead to StackOverflow */
         sInterceptor = null;
-        boolean r = prevInterceptor.onIntercept(tag, msg);
+        boolean r = prevInterceptor.onIntercept(level, tag, msg);
         // restore interceptor after call method onIntercept()
         sInterceptor = prevInterceptor;
         return r;
@@ -109,7 +109,7 @@ public class Log {
      */
     private static void print(int level, String tag, String msg, String extra, int depth) {
         if (sEnable && sLowestLevel <= level) {
-            if (!intercept(tag, msg)) {
+            if (!intercept(level, tag, msg)) {
                 if (sPrintLineInfo) {
                     printImpl(level, tag, sFormatter.format(msg, getStackTraceElement(depth)));
                 } else {
@@ -269,10 +269,12 @@ public class Log {
          * This method will be called every time print log
          * @return return true means user has handled log output and the normal output process will
          * be ignored, otherwise the normal output process will be executed.
+         * @param level log level. Reference to {@link Log#LEVEL_VERBOSE}, {@link #LEVEL_DEBUG},
+         *              {@link #LEVEL_INFO}, {@link #LEVEL_WARN}, {@link #LEVEL_ERROR}
          * @param tag log tag
          * @param msg log message
          */
-        boolean onIntercept(String tag, String msg);
+        boolean onIntercept(int level, String tag, String msg);
     }
 
     private static class DefaultFormatter implements Formatter{

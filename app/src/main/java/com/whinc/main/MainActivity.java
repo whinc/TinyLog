@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity
 
         ((CheckBox)findViewById(R.id.enable_ckb)).setOnCheckedChangeListener(this);
         ((CheckBox)findViewById(R.id.print_line_info_ckb)).setOnCheckedChangeListener(this);
+        ((CheckBox)findViewById(R.id.intercept_log_ckb)).setOnCheckedChangeListener(this);
         Spinner spinner = (Spinner) findViewById(R.id.level_spinner);
         spinner.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,
@@ -76,6 +77,27 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.print_line_info_ckb:
                 Log.enablePrintLineInfo(isChecked);
+                break;
+            case R.id.intercept_log_ckb:
+                if (isChecked) {
+                    // 可多层嵌套的拦截器
+                    Log.setInterceptor(new Log.Interceptor() {
+                        @Override
+                        public boolean onIntercept(int level, String tag, String msg) {
+                            Log.setInterceptor(new Log.Interceptor() {
+                                @Override
+                                public boolean onIntercept(int level, String tag, String msg) {
+                                    Log.e(TAG, "intercept 2");
+                                    return false;
+                                }
+                            });
+                            Log.e(TAG, "intercept 1 with level:" + level);
+                            return false;
+                        }
+                    });
+                } else {
+                    Log.setInterceptor(null);
+                }
                 break;
             default:
                 break;

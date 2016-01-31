@@ -88,26 +88,31 @@ public class MainActivity extends AppCompatActivity
                 Log.v(TAG, "msg only");
                 Log.v(TAG, "msg with print call stack", 3);
                 Log.v(TAG, "msg with print throwable", new Throwable());
+                Log.v(TAG, new Throwable());
                 break;
             case R.id.debug_btn:
                 Log.d(TAG, "msg only");
                 Log.d(TAG, "msg with print call stack", 3);
                 Log.d(TAG, "msg with print throwable", new Throwable());
+                Log.d(TAG, new Throwable());
                 break;
             case R.id.info_btn:
                 Log.i(TAG, "msg only");
                 Log.i(TAG, "msg with print call stack", 3);
                 Log.i(TAG, "msg with print throwable", new Throwable());
+                Log.i(TAG, new Throwable());
                 break;
             case R.id.warn_btn:
                 Log.w(TAG, "msg only");
                 Log.w(TAG, "msg with print call stack", 3);
                 Log.w(TAG, "msg with print throwable", new Throwable());
+                Log.w(TAG, new Throwable());
                 break;
             case R.id.error_btn:
                 Log.e(TAG, "msg only");
                 Log.e(TAG, "msg with print call stack", 3);
                 Log.e(TAG, "msg with print throwable", new Throwable());
+                Log.e(TAG, new Throwable());
                 break;
             default:
                 break;

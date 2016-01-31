@@ -154,16 +154,8 @@ public class Log {
         print(LEVEL_VERBOSE, tag, msg, getStackString(tr), 3);
     }
 
-    public static void i(String tag, String msg) {
-        print(LEVEL_INFO, tag, msg, null, 3);
-    }
-
-    public static void i(String tag, String msg, int callStackDepth) {
-        print(LEVEL_INFO, tag, msg, getCallStack(3, callStackDepth), 3);
-    }
-
-    public static void i(String tag, String msg, Throwable tr) {
-        print(LEVEL_INFO, tag, msg, getStackString(tr), 3);
+    public static void v(String tag, Throwable tr) {
+        print(LEVEL_VERBOSE, tag, "", getStackString(tr), 4);
     }
 
     public static void d(String tag, String msg) {
@@ -178,6 +170,26 @@ public class Log {
         print(LEVEL_DEBUG, tag, msg, getStackString(tr), 3);
     }
 
+    public static void d(String tag, Throwable tr) {
+        print(LEVEL_DEBUG, tag, "", getStackString(tr), 4);
+    }
+
+    public static void i(String tag, String msg) {
+        print(LEVEL_INFO, tag, msg, null, 3);
+    }
+
+    public static void i(String tag, String msg, int callStackDepth) {
+        print(LEVEL_INFO, tag, msg, getCallStack(3, callStackDepth), 3);
+    }
+
+    public static void i(String tag, String msg, Throwable tr) {
+        print(LEVEL_INFO, tag, msg, getStackString(tr), 3);
+    }
+
+    public static void i(String tag, Throwable tr) {
+        print(LEVEL_INFO, tag, "", getStackString(tr), 4);
+    }
+
     public static void w(String tag, String msg) {
         print(LEVEL_WARN, tag, msg, null, 3);
     }
@@ -188,6 +200,10 @@ public class Log {
 
     public static void w(String tag, String msg, Throwable tr) {
         print(LEVEL_WARN, tag, msg, getStackString(tr), 3);
+    }
+
+    public static void w(String tag, Throwable tr) {
+        print(LEVEL_WARN, tag, "", getStackString(tr), 4);
     }
 
     public static void e(String tag, String msg) {
@@ -203,7 +219,7 @@ public class Log {
     }
 
     public static void e(String tag, Throwable tr) {
-        e(tag, "", tr);
+        print(LEVEL_ERROR, tag, "", getStackString(tr), 4);
     }
 
     /**
@@ -245,20 +261,6 @@ public class Log {
         String format(String msg, StackTraceElement e);
     }
 
-    private static class DefaultFormatter implements Formatter{
-
-        @Override
-        public String format(String msg, StackTraceElement e) {
-            return String.format("%s.%s(%s:%d):%s",
-                    e.getClassName(),
-                    e.getMethodName(),
-                    e.getFileName(),
-                    e.getLineNumber(),
-                    msg
-            );
-        }
-    }
-
     /**
      * Intercept log output
      */
@@ -271,5 +273,19 @@ public class Log {
          * @param msg log message
          */
         boolean onIntercept(String tag, String msg);
+    }
+
+    private static class DefaultFormatter implements Formatter{
+
+        @Override
+        public String format(String msg, StackTraceElement e) {
+            return String.format("%s.%s(%s:%d):%s",
+                    e.getClassName(),
+                    e.getMethodName(),
+                    e.getFileName(),
+                    e.getLineNumber(),
+                    msg
+            );
+        }
     }
 }

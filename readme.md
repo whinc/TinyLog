@@ -61,6 +61,7 @@ Primary method of `Log` class:
     public static void v(String tag, String msg);
     public static void v(String tag, String msg, int callStackDepth);
     public static void v(String tag, String msg, Throwable tr);
+    public static void v(String tag, Throwable tr);
 
     public static void enable(boolean b);
     public static void level(@Level int level);
@@ -159,7 +160,7 @@ Intercept log output:
     Log.restoreDefaultSetting();
     Log.setInterceptor(new Log.Interceptor() {
         @Override
-        public boolean onIntercept(String tag, String msg) {
+        public boolean onIntercept(int level, String tag, String msg) {
             Log.v(TAG, "intercept " + msg);
             return true;        // return true to consume the log message
         }
@@ -168,7 +169,7 @@ Intercept log output:
     Log.setInterceptor(new Log.Interceptor() {
 
         @Override
-        public boolean onIntercept(String tag, String msg) {
+        public boolean onIntercept(int level, String tag, String msg) {
             Log.v(TAG, "don't intercept " + msg);
             return false;       // return false to don't consume the log message
         }
